@@ -144,20 +144,21 @@ def write_to_spreadsheet(data, filename):
         except:
             pass
         for j in range(len(data[i])):
-            try:
-                sheet.cell(row = start_row + j, column = start_column - 1).value = index_to_hour(j)
-            except:
-                pass
             
             current_row = start_row+j
             current_column = start_column+i
             sheet.cell(row = current_row, column = current_column).value = data[i][j]
+    for j in range(max([len(sub) for sub in data])):
+        try:
+            sheet.cell(row = start_row + j, column = start_column - 1).value = index_to_hour(j)
+        except:
+            pass
     
     workbook.save(filename)
     
 def main():
     available = read_spreadsheet('times.xlsx')
-    write_to_spreadsheet(available, 'timesvisuaslized.xlsx')
+    write_to_spreadsheet(available, 'timesvisualized.xlsx')
 
 if __name__ == "__main__":
     main()
